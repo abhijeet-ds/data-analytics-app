@@ -11,8 +11,11 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-                bat 'pytest'
+             steps {
+                bat '''
+                    set PYTHONPATH=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\data-analytics-app\\src
+                    C:\\Users\\nishw\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pytest.exe
+                '''
             }
         }
         stage('Docker Build') {
