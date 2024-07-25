@@ -28,7 +28,9 @@ pipeline {
         }
         stage('Deploy to Minikube') {
             steps {
+                    bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\kubectl.exe" config use-context minikube'
                     bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\kubectl.exe" apply -f k8s\\deployment.yaml --validate=false'
+                    bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\kubectl.exe" apply -f k8s\\service.yaml --validate=false'
             }
         }
     }
