@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Install dependencies directly using global Python installation
-                    bat 'pip install -r requirements.txt'
+                     sh'pip install -r requirements.txt'
                 }
             }
         }
