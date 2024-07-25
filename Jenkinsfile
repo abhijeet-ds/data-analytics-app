@@ -4,18 +4,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                    // Install dependencies directly using global Python installation
-                     bat 'pip install -r requirements.txt'
-                }
+                bat '''
+                    C:\\Users\\nishw\\AppData\\Local\\Programs\\Python\\Python311\\python.exe -m pip install --upgrade pip
+                    C:\\Users\\nishw\\AppData\\Local\\Programs\\Python\\Python311\\python.exe -m pip install -r requirements.txt
+                '''
             }
         }
         stage('Test') {
             steps {
-                script {
-                    // Run tests using global Python installation
-                    bat 'pytest'
-                }
+                bat 'pytest'
             }
         }
         stage('Docker Build') {
@@ -27,10 +24,7 @@ pipeline {
         }
         stage('Deploy to Minikube') {
             steps {
-                script {
-                    // Deploy application using kubectl
-                    bat 'kubectl apply -f k8s/deployment.yaml'
-                }
+                bat 'kubectl apply -f k8s\\deployment.yaml'
             }
         }
     }
