@@ -1,16 +1,28 @@
 pipeline {
     agent any
+
     stages {
         stage('Build') {
             steps {
                 script {
-                    sh 'pip install -r requirements.txt'
+                    // Activate virtual environment and install dependencies
+                    bat """
+                        python -m venv venv
+                        call venv\\Scripts\\activate
+                        pip install -r requirements.txt
+                    """
                 }
             }
         }
         stage('Test') {
             steps {
-                sh 'pytest'
+                script {
+                    // Activate virtual environment and run tests
+                    bat """
+                        call venv\\Scripts\\activate
+                        pytest
+                    """
+                }
             }
         }
         stage('Docker Build') {
@@ -23,7 +35,8 @@ pipeline {
         stage('Deploy to Minikube') {
             steps {
                 script {
-                    sh 'kubectl apply -f k8s/deployment.yaml'
+                    // Deploy application using kubectl
+                    bat 'kubectl apply -f k8s/deployment.yaml'
                 }
             }
         }
