@@ -21,7 +21,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build('data-analytics-app:latest')
+                    def dockerImage = docker.build('data-analytics-app:latest')
+                    dockerImage.push('latest')
                 }
             }
         }
