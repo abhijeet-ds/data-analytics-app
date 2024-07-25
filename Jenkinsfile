@@ -5,23 +5,16 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Activate virtual environment and install dependencies
-                    bat """
-                        python -m venv venv
-                        call venv\\Scripts\\activate
-                        pip install -r requirements.txt
-                    """
+                    // Install dependencies directly using global Python installation
+                    bat 'pip install -r requirements.txt'
                 }
             }
         }
         stage('Test') {
             steps {
                 script {
-                    // Activate virtual environment and run tests
-                    bat """
-                        call venv\\Scripts\\activate
-                        pytest
-                    """
+                    // Run tests using global Python installation
+                    bat 'pytest'
                 }
             }
         }
